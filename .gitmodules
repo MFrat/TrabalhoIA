@@ -1,0 +1,3 @@
+[submodule "BoardView"]
+	path = BoardView
+	url = https://github.com/MFrat/BoardView.git
