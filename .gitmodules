@@ -1,6 +1,3 @@
 [submodule "BoardView"]
 	path = BoardView
 	url = https://github.com/MFrat/BoardView.git
-[submodule "RegraDamas"]
-	path = RegraDamas
-	url = https://github.com/MFrat/RegraDamas.git
