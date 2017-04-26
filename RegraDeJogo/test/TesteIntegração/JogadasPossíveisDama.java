@@ -8,7 +8,7 @@ package TesteIntegração;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Pos;
+//import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
