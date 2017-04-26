@@ -31,11 +31,11 @@ public class Bot {
     
     private int utility(Rule rule){
         if(rule.isWinnerPlayer(player)){
-            return 10;
+            return 1;
         }else if(rule.draw()){
             return 0;
         }
-        return -10;
+        return -1;
     }
     
     private int maxValue(Rule rule) {
