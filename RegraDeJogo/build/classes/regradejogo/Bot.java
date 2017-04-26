@@ -34,7 +34,7 @@ public class Bot extends Jogador {
                 numero_iteracoes = 4;
                 break;
             case DIFICIL:
-                numero_iteracoes = 10;
+                numero_iteracoes = 8;
                 break;
         }
     }
@@ -54,12 +54,32 @@ public class Bot extends Jogador {
         
         regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
     }
+    
+    public Jogada Jogar2() {
+        Regras regra_auxiliar;
+        proximaJogada = null;
+        regra_auxiliar = regras.copia();
+        minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
+        //System.out.println("Bot joga:" + proximaJogada.toString());
+        return proximaJogada;
+        //regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
+    }
 
     public int heuristica(Regras regra) {
-        if (regra.getJogadorAtual() == Regras.JOGADOR_UM) {
-            return regra.getnPecasJogador1() - regra.getnPecasJogador2();
-        } else {
-            return regra.getnPecasJogador2() - regra.getnPecasJogador1();
+        if(time == Regras.JOGADOR_UM){
+            if (regra.getJogadorAtual() == Regras.JOGADOR_UM) {
+                return regra.getnPecasJogador1() - regra.getnPecasJogador2();
+            } else {
+                return regra.getnPecasJogador2() - regra.getnPecasJogador1();
+            }
+        }
+        else{
+            if (regra.getJogadorAtual() == Regras.JOGADOR_DOIS) {
+                return regra.getnPecasJogador2() - regra.getnPecasJogador1();                
+            } else {
+                return regra.getnPecasJogador1() - regra.getnPecasJogador2();
+            }
+            
         }
     }
     
