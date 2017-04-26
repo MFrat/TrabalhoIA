@@ -5,9 +5,6 @@
  */
 package rule;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Max
@@ -50,6 +47,15 @@ public class Table {
         return -1;
     }
     
+    public Table copy(){
+        Table table = new Table();
+        for(int i = 0; i < DIMENSION; i++){
+            System.arraycopy(this.gameTable[i], 0, table.gameTable[i], 0, DIMENSION);
+        }
+        
+        return table;
+    }
+    
     public enum Player{
         One(1), TWO(2);
         
@@ -66,61 +72,5 @@ public class Table {
     
     public int getDimension(){
         return DIMENSION;
-    }
-    
-    List<Position> getPositions(){
-        List<Position> positions = new ArrayList<>();
-        
-        for(int i = 0; i < DIMENSION; i++){
-            for(int j= 0; j < DIMENSION; j++){
-                if(isBlankPosition(i, j)) {
-                    positions.add(new Position(i, j));
-                }
-            }
-        }
-        
-        return positions;
-    }
-    
-    public Table copy(){
-        Table table = new Table();
-        
-        for(int i = 0; i < DIMENSION; i++){
-            for(int j = 0; j < DIMENSION; j++){
-                table.gameTable[i][j] = this.gameTable[i][j];
-            }
-        }
-        
-        return table;
-    }
-    
-    public class Position{
-        private int i;
-        private int j;
-        
-        public Position(){
-            
-        }
-        
-        public Position(int i, int j){
-            this.i = i;
-            this.j = j;
-        }
-
-        public int getI() {
-            return i;
-        }
-
-        public void setI(int i) {
-            this.i = i;
-        }
-
-        public int getJ() {
-            return j;
-        }
-
-        public void setJ(int j) {
-            this.j = j;
-        }
     }
 }
