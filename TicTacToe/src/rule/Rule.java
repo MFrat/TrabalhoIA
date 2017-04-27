@@ -37,7 +37,7 @@ public class Rule {
         
         table.markPosition(i, j, TURN_PLAYER);
         
-        if(verifyEndGame(TURN_PLAYER.getPlayer())){
+        if(verifyEndGame(Player.One.getPlayer()) || verifyEndGame(Player.TWO.getPlayer())){
             gameFinished = true;
         }
         
