@@ -29,25 +29,29 @@ public class Bot {
         
     }
     
-    private int utility(Rule rule){
+    private int utility(Rule rule, int depth){
+        //System.out.println("Jogador um venceu: " + rule.playerOneWon() + " Jogador dois venceu: " + rule.playerTwoWon());
+        //rule.printBoard();
         if(rule.isWinnerPlayer(player)){
-            return 1;
+            return 10 - depth;
         }else if(rule.draw()){
             return 0;
         }
-        return -1;
+        return depth - 10;
     }
     
-    private int maxValue(Rule rule) {
+    private int maxValue(Rule rule, int depth) {
         if(rule.isGameFinished()){
-            return utility(rule);
+            return utility(rule, depth);
         }
         
-        int value = -499;
+        depth++;
+        
+        int value = -999999;
         
         for(Position pos : rule.getAvailablePositions()){
             Rule copy = rule.copy();
-            int tmp = minValue(copy.play(pos.getI(), pos.getJ()));
+            int tmp = minValue(copy.play(pos.getI(), pos.getJ()), depth);
             if(tmp > value) {
                 value = tmp;
                 bestPosition = pos;
@@ -57,16 +61,18 @@ public class Bot {
         return value;
     }
     
-    private int minValue(Rule rule) {
+    private int minValue(Rule rule, int depth) {
         if(rule.isGameFinished()){
-            return utility(rule);
+            return utility(rule, depth);
         }
         
-        int value = 499;
+        depth++;
+        
+        int value = 999999;
         
         for(Position pos : rule.getAvailablePositions()){
             Rule copy = rule.copy();
-            int tmp = maxValue(copy.play(pos.getI(), pos.getJ()));
+            int tmp = maxValue(copy.play(pos.getI(), pos.getJ()), depth);
             if(tmp < value) {
                 value = tmp;
                 bestPosition = pos;
@@ -77,6 +83,6 @@ public class Bot {
     }
     
     private int minimax(Rule rule){
-        return maxValue(rule);
+        return maxValue(rule, 0);
     }
 }

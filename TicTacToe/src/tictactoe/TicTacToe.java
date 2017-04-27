@@ -40,7 +40,7 @@ public class TicTacToe {
         Scanner scan = new Scanner(System.in);
         while(true){
             regra.printBoard();
-            System.out.println("Position to play: ");
+            System.out.println("Positiona to play: ");
             int i = scan.nextInt();
             int j = scan.nextInt();
             
