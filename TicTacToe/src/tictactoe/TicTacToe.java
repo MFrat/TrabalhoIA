@@ -46,6 +46,15 @@ public class TicTacToe {
             
             try{
                 regra.play(i, j);
+                
+                if(regra.isGameFinished()){
+                    break;
+                }
+                
+                System.out.println("Vou jogar");
+                Position pos = bot.play(regra);
+                regra.play(pos.getI(), pos.getJ());
+                System.out.println();
             }catch(Exception e){
                 System.out.println("Invalid play.");
             }
@@ -53,11 +62,6 @@ public class TicTacToe {
             if(regra.isGameFinished()){
                 break;
             }
-            
-            System.out.println("Vou jogar");
-            Position pos = bot.play(regra);
-            regra.play(pos.getI(), pos.getJ());
-            System.out.println();
         }
     }
     
