@@ -799,25 +799,25 @@ public class Regras {
      *
      * @return true se o jogo acabou, false caso não.
      */
-    private void verificaFimDeJogo() {
+    private boolean verificaFimDeJogo() {
         //TODO: Verifica se ambos jogadores ainda tem peças com jogadas possíveis.
-
-        //Checa fim de jogo por término de peças.
-        /*if(nPecasJogador1 == 0){
+        if (nPecasJogador1 == 0){
             if(boardChangedListener != null){
-                boardChangedListener.onGameFinished(JOGADOR_DOIS, FimDeJogo.TERMINO_DE_PECAS);
-                jogoFinalizado = true;
-                return;
+                boardChangedListener.onGameFinished(JOGADOR_DOIS, turnoAtual);
             }
+            
+            return true;
         }
         
-        if(nPecasJogador2 == 0){
+        if (nPecasJogador2 == 0){
             if(boardChangedListener != null){
-                boardChangedListener.onGameFinished(JOGADOR_UM, FimDeJogo.TERMINO_DE_PECAS);
-                jogoFinalizado = true;
-                return;
+                boardChangedListener.onGameFinished(JOGADOR_UM, turnoAtual);
             }
-        }*/
+            
+            return true;
+        }
+        
+        return false;
     }
 
     /**

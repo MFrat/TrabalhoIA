@@ -28,6 +28,21 @@ public class Bot {
         return bestPosition;
         
     }
+<<<<<<< HEAD
+
+    private int utility(Rule rule) {
+        if(rule.draw()) return 0;
+        if(rule.playerOneWon()) return -1;
+        return 1;
+    }
+    
+    private int maxValue(Rule rule) {
+        if(rule.isGameFinished()) return utility(rule);
+        int value = -499;
+        for(Position pos : rule.getAvailablePos()){
+            int tmp = minValue(rule.play(pos.getI(), pos.getJ()));
+            //rule.printBoard(); System.out.println(tmp);
+=======
     
     private int utility(Rule rule, int depth){
         //System.out.println("Jogador um venceu: " + rule.playerOneWon() + " Jogador dois venceu: " + rule.playerTwoWon());
@@ -52,12 +67,13 @@ public class Bot {
         for(Position pos : rule.getAvailablePositions()){
             Rule copy = rule.copy();
             int tmp = minValue(copy.play(pos.getI(), pos.getJ()), depth);
+>>>>>>> 172b1a977905db8b30cca47dcdac3e13af11815e
             if(tmp > value) {
                 value = tmp;
                 bestPosition = pos;
             }
         }
-        
+        System.out.println("maxValue" + value);
         return value;
     }
     
@@ -75,10 +91,10 @@ public class Bot {
             int tmp = maxValue(copy.play(pos.getI(), pos.getJ()), depth);
             if(tmp < value) {
                 value = tmp;
-                bestPosition = pos;
+                //bestPosition = pos;
             }
         }
-        
+        System.out.println("minValue" + value);
         return value;
     }
     
