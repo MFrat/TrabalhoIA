@@ -5,11 +5,7 @@
  */
 package regradejogo;
 
-import regradejogo.Jogador;
 import java.util.List;
-import regradejogo.Jogada;
-import regradejogo.Peca;
-import regradejogo.Regras;
 
 /**
  *
@@ -32,7 +28,7 @@ public class Bot extends Jogador {
             case MEDIO:
                 numero_iteracoes = 4;
                 break;
-            case DIFICIL:
+            case CEM_CONTO_QUE_ALINE_NAO_GANHA:
                 numero_iteracoes = 8;
                 break;
         }
@@ -40,7 +36,7 @@ public class Bot extends Jogador {
 
     public enum Dificuldade {
 
-        FACIL, MEDIO, DIFICIL
+        FACIL, MEDIO, CEM_CONTO_QUE_ALINE_NAO_GANHA
 
     }
 
@@ -54,29 +50,38 @@ public class Bot extends Jogador {
 
         regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
     }
-
-    public int heuristica(Regras regra) {
+    
+    public int goku_mode(Regras regra) { //UTILITY COM PESO PARA DAMA
+        int genkindama = 0;
+        List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
+        for (Peca peca : pecasAptas) {
+            if(peca.isDama()) genkindama++;
+        }
+        return genkindama + regra.getnPecasJogador2() - regra.getnPecasJogador1();
+    }
+    
+    public int utility(Regras regra) {
         return regra.getnPecasJogador2() - regra.getnPecasJogador1();
     }
 
     private int minMax(Regras regra, int alpha, int beta, int iteracao) {
-        if ((iteracao == numero_iteracoes) || regra.isJogoFinalizado())
-            return heuristica(regra);
-        
-        Regras regra_auxiliar;
-        Jogada jogadaCandidata = null;
-        if (regra.getJogadorAtual() == time) {
-            List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
-            /*if (pecasAptas.size() < 1) {
+        if ((iteracao == numero_iteracoes) || regra.isJogoFinalizado()) {
+            return goku_mode(regra); //USAR GOKU_MODE OU UTILITY
+        }
 
-                return heuristica(regra);
-            }*/
+        Regras regra_auxiliar;
+        Jogada jogadaCandidata;
+        if (regra.getJogadorAtual() == time) {
             int value = Integer.MIN_VALUE;
+            List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
             for (Peca peca : pecasAptas) {
                 List<Jogada> jogadasPossiveis;
-                
-                if (peca.isDama()) jogadasPossiveis = regra.jogadasPossiveisDama(peca);
-                else jogadasPossiveis = regra.jogadasPossiveis(peca);
+
+                if (peca.isDama()) {
+                    jogadasPossiveis = regra.jogadasPossiveisDama(peca);
+                } else {
+                    jogadasPossiveis = regra.jogadasPossiveis(peca);
+                }
 
                 for (Jogada jogada : jogadasPossiveis) {
                     regra_auxiliar = regra.copia();
@@ -91,8 +96,9 @@ public class Bot extends Jogador {
                         System.out.println("predição da rodada :" + iteracao);
                     }
                     int tmp = minMax(regra_auxiliar, alpha, beta, iteracao + 1);
-                    if (tmp > value)
+                    if (tmp > value) {
                         value = tmp;
+                    }
                     if (value > alpha) {
                         alpha = value;
                         jogadaCandidata = jogada;
@@ -102,15 +108,16 @@ public class Bot extends Jogador {
                         }
                     }
 
-                    if (alpha >= beta) {
+                    if (beta <= alpha) {
                         break;
                     }
 
                 }
             }
 
-            return alpha;
+            return value;
         } else {
+            int value = Integer.MAX_VALUE;
             List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
             for (Peca peca : pecasAptas) {
                 List<Jogada> jogadasPossiveis;
@@ -119,6 +126,7 @@ public class Bot extends Jogador {
                 } else {
                     jogadasPossiveis = regra.jogadasPossiveis(peca);
                 }
+
                 for (Jogada jogada : jogadasPossiveis) {
                     regra_auxiliar = regra.copia();
                     possibilidades++;
@@ -131,20 +139,22 @@ public class Bot extends Jogador {
                         System.out.println("predição da rodada :" + iteracao);
                     }
 
-                    int heuristica = minMax(regra_auxiliar, alpha, beta, iteracao + 1);
-                    if (heuristica < beta) {
-                        beta = heuristica;
+                    int tmp = minMax(regra_auxiliar, alpha, beta, iteracao + 1);
+                    if (tmp < value) {
+                        value = tmp;
+                    }
+                    if (value < beta) {
+                        beta = value;
 
                     }
-
-                    if (alpha >= beta) {
+                    if (beta <= alpha) {
                         break;
                     }
 
                 }
 
             }
-            return beta;
+            return value;
         }
     }
 

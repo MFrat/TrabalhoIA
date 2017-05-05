@@ -1,14 +1,13 @@
 package regradejogo;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         //Regras regras = new Regras(".\\testes\\testePosPossiveisPeca\\testePosPossiveis7.txt");
-        Regras regras = new Regras("testeCaptura1.txt");
+        Regras regras = new Regras();//"testeCaptura1.txt");//"testeCaptura1.txt");
         
         regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
             @Override
@@ -80,9 +79,9 @@ public class Main {
     }
 
     public static void jogarHumanoVsBot(Regras regras) {
-
-        Bot botPl2 = new Bot(regras, Bot.Dificuldade.DIFICIL, Regras.JOGADOR_DOIS);
+        Bot botPl2 = new Bot(regras, Bot.Dificuldade.CEM_CONTO_QUE_ALINE_NAO_GANHA, Regras.JOGADOR_DOIS);
         Humano humanoPl1 = new Humano(regras, Regras.JOGADOR_UM);
+        //Humano humanoPl2 = new Humano(regras, Regras.JOGADOR_DOIS);
 
         while (!regras.isJogoFinalizado()) {
             System.out.println(regras.getTabuleiro().toString());
@@ -90,6 +89,7 @@ public class Main {
                 humanoJoga(humanoPl1, regras);
             } else {
                 botPl2.Jogar();
+                //humanoJoga(humanoPl2, regras);
             }
         }
 
