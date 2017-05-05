@@ -5,9 +5,9 @@
  */
 package rule;
 
+import java.util.ArrayList;
 import java.util.List;
 import rule.Table.Player;
-import rule.Table.Position;
 
 /**
  *
@@ -22,17 +22,12 @@ public class Rule {
     
     private boolean isDraw = false;
     
+    private int winner;
+    
+    private Listener listener;
+    
     public Rule(){
         
-    }
-    
-    public Rule Rule(Rule rule) {
-        this.TURN_PLAYER = rule.TURN_PLAYER;
-        this.gameFinished = rule.gameFinished;
-        this.table = rule.table;
-        this.isDraw = rule.isDraw;
-        
-        return null;
     }
     
     public Rule play(int i, int j){
@@ -42,7 +37,7 @@ public class Rule {
         
         table.markPosition(i, j, TURN_PLAYER);
         
-        if(verifyEndGame(TURN_PLAYER.getPlayer())){
+        if(verifyEndGame(Player.One.getPlayer()) || verifyEndGame(Player.TWO.getPlayer())){
             gameFinished = true;
         }
         
@@ -65,8 +60,31 @@ public class Rule {
     }
     
     private boolean verifyEndGame(int player){
-        return verifyColumns(player) || verifyRows(player) 
-                || verifyDiag(player) || verifyDiag2(player) || verifyDraw();
+        if(verifyColumns(player) || verifyRows(player) 
+                || verifyDiag(player) || verifyDiag2(player)){
+            
+            if(listener != null){
+                listener.onPlayerWin(player);
+            }
+            
+            gameFinished = true;
+            
+            winner = player;
+            
+            return true;
+        }
+        
+        if(verifyDraw()){
+            if(listener != null){
+                listener.onDraw();
+            }
+            
+            isDraw = true;
+            
+            return true;
+        }
+        
+        return false;
     }
     
     private boolean verifyDraw(){
@@ -78,7 +96,6 @@ public class Rule {
             }
         }
         
-        isDraw = true;
         return true;
     }
     
@@ -121,7 +138,6 @@ public class Rule {
             for(int j = 0; j < table.getDimension(); j++){
                 if(i == j){
                     if(table.getPositionValue(j, i) != player){
-                        //isDraw = true;
                         return false;
                     }
                 }
@@ -143,8 +159,42 @@ public class Rule {
         return true;
     }
     
+    public List<Position> getAvailablePositions(){
+        List<Position> positions = new ArrayList<>();
+        
+        for(int i = 0; i < table.getDimension(); i++){
+            for(int j = 0; j < table.getDimension(); j++){
+                if(table.isBlankPosition(i, j)){
+                    positions.add(new Position(i, j));
+                }
+            }
+        }
+        
+        return positions;
+    }
+    
     public boolean playerOneWon(){
-        return gameFinished && (TURN_PLAYER == Table.Player.TWO);
+        return !isDraw && gameFinished && (TURN_PLAYER != Table.Player.One);
+    }
+    
+    public boolean playerTwoWon(){
+        return !isDraw && gameFinished && (TURN_PLAYER != Table.Player.TWO);
+    }
+    
+    public boolean isPlayerOneTurn(){
+        return TURN_PLAYER == Table.Player.One;
+    }
+    
+    public boolean isPlayerTwoTurn(){
+        return TURN_PLAYER == Table.Player.TWO;
+    }
+    
+    public boolean isPlayerTurn(Player player){
+        return player == TURN_PLAYER;
+    }
+    
+    public boolean isWinnerPlayer(Player player){
+        return player.getPlayer() == winner;
     }
     
     public boolean draw(){
@@ -154,27 +204,58 @@ public class Rule {
     public boolean isGameFinished(){
         return gameFinished;
     }
-    
-    public Table getTable(){
-        return table;
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
-    
-    public boolean isTurnPlayer(Table.Player player){
-        return TURN_PLAYER == player;
-    }
-    
-    public List<Position> getAvailablePos(){
-        return table.getPositions();
+
+    public Player getTURN_PLAYER() {
+        return TURN_PLAYER;
     }
     
     public Rule copy(){
         Rule rule = new Rule();
         
+        rule.table = this.table.copy();
         rule.TURN_PLAYER = this.TURN_PLAYER;
         rule.gameFinished = this.gameFinished;
         rule.isDraw = this.isDraw;
-        rule.table = this.table.copy();
         
         return rule;
+    }
+    
+    public interface Listener{
+        void onPlayerWin(int winner);
+        void onDraw();
+    }
+    
+    public class Position{
+        private int i;
+        private int j;
+        
+        public Position(){
+            
+        }
+        
+        public Position(int i, int j){
+            this.i = i;
+            this.j = j;
+        }
+
+        public int getI() {
+            return i;
+        }
+
+        public void setI(int i) {
+            this.i = i;
+        }
+
+        public int getJ() {
+            return j;
+        }
+
+        public void setJ(int j) {
+            this.j = j;
+        }
     }
 }
