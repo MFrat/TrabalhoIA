@@ -19,14 +19,13 @@ public class Bot extends Jogador {
 
     private int numero_iteracoes;
     Jogada proximaJogada;
-    int possibilidades; 
-    
+    int possibilidades;
+
     public Bot(Regras regras, Dificuldade dificuldade, int time) {
 
-        super(regras,time);
-        
-        
-        switch(dificuldade){
+        super(regras, time);
+
+        switch (dificuldade) {
             case FACIL:
                 numero_iteracoes = 2;
                 break;
@@ -34,7 +33,7 @@ public class Bot extends Jogador {
                 numero_iteracoes = 4;
                 break;
             case DIFICIL:
-                numero_iteracoes = 10;
+                numero_iteracoes = 8;
                 break;
         }
     }
@@ -44,110 +43,109 @@ public class Bot extends Jogador {
         FACIL, MEDIO, DIFICIL
 
     }
+
     public void Jogar() {
         Regras regra_auxiliar;
         proximaJogada = null;
         regra_auxiliar = regras.copia();
         possibilidades = 0;
-        minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
+        System.out.println(minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1));
         System.out.println(possibilidades);
-        
+
         regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
     }
 
     public int heuristica(Regras regra) {
-        if (regra.getJogadorAtual() == Regras.JOGADOR_UM) {
-            return regra.getnPecasJogador1() - regra.getnPecasJogador2();
-        } else {
-            return regra.getnPecasJogador2() - regra.getnPecasJogador1();
-        }
+        return regra.getnPecasJogador2() - regra.getnPecasJogador1();
     }
-    
-    
+
     private int minMax(Regras regra, int alpha, int beta, int iteracao) {
-        if ((iteracao == numero_iteracoes) || regra.isJogoFinalizado()) {
+        if ((iteracao == numero_iteracoes) || regra.isJogoFinalizado())
             return heuristica(regra);
-        } else {            
-            Regras regra_auxiliar;            
-            int minMax;
-            Jogada jogadaCandidata = null;
-            if (regra.getJogadorAtual() == time) {
-                
-                List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
-                for (Peca peca : pecasAptas) {
-                    List<Jogada> jogadasPossiveis;
-                    if(peca.isDama())    
-                        jogadasPossiveis = regra.jogadasPossiveisDama(peca);
-                    else
-                        jogadasPossiveis = regra.jogadasPossiveis(peca);
-                    
-                    for (Jogada jogada : jogadasPossiveis) {                        
-                        regra_auxiliar = regra.copia();
-                        possibilidades++;
-                        
-                        
-                        try{
-                            regra_auxiliar.moverPeca(jogada.getPosInicial(), jogada.getPosFinal());
-                        }catch(Exception e){
-                            System.out.println(e);
-                            System.out.println(jogada.toString());
-                            System.out.println(regra.getTabuleiro().toString());
-                            System.out.println("predição da rodada :" + iteracao);
-                        }
-                        int heuristica = minMax(regra_auxiliar, alpha, beta, iteracao + 1);                                                
-                        if(heuristica > alpha){
-                            alpha = heuristica;
-                            jogadaCandidata = jogada;
-                            
-                            if(iteracao == 1)
-                                proximaJogada = jogadaCandidata;                                        
-                        }
-                        
-                        if(alpha >= beta)
-                            break;
+        
+        Regras regra_auxiliar;
+        Jogada jogadaCandidata = null;
+        if (regra.getJogadorAtual() == time) {
+            List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
+            /*if (pecasAptas.size() < 1) {
 
+                return heuristica(regra);
+            }*/
+            int value = Integer.MIN_VALUE;
+            for (Peca peca : pecasAptas) {
+                List<Jogada> jogadasPossiveis;
+                
+                if (peca.isDama()) jogadasPossiveis = regra.jogadasPossiveisDama(peca);
+                else jogadasPossiveis = regra.jogadasPossiveis(peca);
+
+                for (Jogada jogada : jogadasPossiveis) {
+                    regra_auxiliar = regra.copia();
+                    possibilidades++;
+
+                    try {
+                        regra_auxiliar.moverPeca(jogada.getPosInicial(), jogada.getPosFinal());
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        System.out.println(jogada.toString());
+                        System.out.println(regra.getTabuleiro().toString());
+                        System.out.println("predição da rodada :" + iteracao);
                     }
-                }
-                
-                return alpha;
-            } else {
-                List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
-                for (Peca peca : pecasAptas) {
-                    List<Jogada> jogadasPossiveis;
-                    if(peca.isDama())    
-                        jogadasPossiveis = regra.jogadasPossiveisDama(peca);
-                    else
-                        jogadasPossiveis = regra.jogadasPossiveis(peca);
-                    for (Jogada jogada : jogadasPossiveis) {
-                        regra_auxiliar = regra.copia();
-                        possibilidades++;
-                        try{
-                            regra_auxiliar.moverPeca(jogada.getPosInicial(), jogada.getPosFinal());
-                        }catch(Exception e){
-                            System.out.println(e);
-                            System.out.println(jogada.toString());
-                            System.out.println(regra.getTabuleiro().toString());
-                            System.out.println("predição da rodada :" + iteracao);
-                        }
-                        
-                        int heuristica = minMax(regra_auxiliar, alpha, beta, iteracao + 1);                        
-                        if(heuristica < beta){
-                            beta = heuristica;
-                            
-                        }
-                        
-                        if(alpha >= beta)
-                            break;
+                    int tmp = minMax(regra_auxiliar, alpha, beta, iteracao + 1);
+                    if (tmp > value)
+                        value = tmp;
+                    if (value > alpha) {
+                        alpha = value;
+                        jogadaCandidata = jogada;
 
+                        if (iteracao == 1) {
+                            proximaJogada = jogadaCandidata;
+                        }
+                    }
+
+                    if (alpha >= beta) {
+                        break;
                     }
 
                 }
-                return beta;
             }
-            
-            
+
+            return alpha;
+        } else {
+            List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
+            for (Peca peca : pecasAptas) {
+                List<Jogada> jogadasPossiveis;
+                if (peca.isDama()) {
+                    jogadasPossiveis = regra.jogadasPossiveisDama(peca);
+                } else {
+                    jogadasPossiveis = regra.jogadasPossiveis(peca);
+                }
+                for (Jogada jogada : jogadasPossiveis) {
+                    regra_auxiliar = regra.copia();
+                    possibilidades++;
+                    try {
+                        regra_auxiliar.moverPeca(jogada.getPosInicial(), jogada.getPosFinal());
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        System.out.println(jogada.toString());
+                        System.out.println(regra.getTabuleiro().toString());
+                        System.out.println("predição da rodada :" + iteracao);
+                    }
+
+                    int heuristica = minMax(regra_auxiliar, alpha, beta, iteracao + 1);
+                    if (heuristica < beta) {
+                        beta = heuristica;
+
+                    }
+
+                    if (alpha >= beta) {
+                        break;
+                    }
+
+                }
+
+            }
+            return beta;
         }
     }
 
 }
-

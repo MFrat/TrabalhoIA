@@ -30,37 +30,22 @@ public class Bot {
 
     private int utility(Rule rule) {
         if(rule.draw()) return 0;
-        if(rule.playerOneWon()){
-            if(rule.isTurnPlayer(Table.Player.TWO)){
-                return -1;
-            }else{
-                return 1;
-            }
-        }else{
-            if(rule.isTurnPlayer(Table.Player.TWO)){
-                return 1;
-            }else{
-                return -1;
-            }
-        }
+        if(rule.playerOneWon()) return -1;
+        return 1;
     }
     
     private int maxValue(Rule rule) {
-        if(rule.isGameFinished())
-            return utility(rule);
+        if(rule.isGameFinished()) return utility(rule);
         int value = -499;
-        Rule copy = rule.copy();
-        System.out.println();System.out.println();
-        for(Position pos : copy.getAvailablePos()){
-            copy.printBoard();
-            System.out.println();
-            int tmp = minValue(copy.play(pos.getI(), pos.getJ()));
+        for(Position pos : rule.getAvailablePos()){
+            int tmp = minValue(rule.play(pos.getI(), pos.getJ()));
+            //rule.printBoard(); System.out.println(tmp);
             if(tmp > value) {
                 value = tmp;
                 bestPosition = pos;
             }
         }
-        
+        System.out.println("maxValue" + value);
         return value;
     }
     
@@ -74,10 +59,10 @@ public class Bot {
             int tmp = maxValue(copy.play(pos.getI(), pos.getJ()));
             if(tmp < value) {
                 value = tmp;
-                bestPosition = pos;
+                //bestPosition = pos;
             }
         }
-        
+        System.out.println("minValue" + value);
         return value;
     }
     
