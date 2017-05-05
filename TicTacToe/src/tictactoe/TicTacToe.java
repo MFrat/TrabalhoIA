@@ -45,16 +45,16 @@ public class TicTacToe {
             int j = scan.nextInt();
             
             try{
-                regra.play(i, j);
+                System.out.println("Vou jogar");
+                Position pos = bot.play(regra);
+                regra.play(pos.getI(), pos.getJ());
+                System.out.println();
                 
                 if(regra.isGameFinished()){
                     break;
                 }
                 
-                System.out.println("Vou jogar");
-                Position pos = bot.play(regra);
-                regra.play(pos.getI(), pos.getJ());
-                System.out.println();
+                regra.play(i, j);
             }catch(Exception e){
                 System.out.println("Invalid play.");
             }
