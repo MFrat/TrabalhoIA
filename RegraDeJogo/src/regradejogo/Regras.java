@@ -62,6 +62,8 @@ public class Regras {
      */
     public Regras(String nomeArquivo) throws IOException {
         tabuleiro = new Tabuleiro(nomeArquivo);
+        nPecasJogador1 = tabuleiro.nPecasJogador(JOGADOR_UM);
+        nPecasJogador2 = tabuleiro.nPecasJogador(JOGADOR_DOIS);
     }
 
     public Regras(InputStream inputStream) throws IOException {
@@ -146,21 +148,6 @@ public class Regras {
         if (jogada.houveCaptura()) {
             //Removo a peça capturada do tabuleiro.
             removerPeca(jogada.getPecaCapturada());
-
-            /**
-             * A partir daqui é gambiarra pra captura em sequencia.
-             */
-            if (!peca.isDama()) {
-                List<Jogada> capturasPecaAtual = jogadasPossiveis(peca);
-                if (!possuiCaptura(capturasPecaAtual)) {
-                    trocaJogadorAtual();
-                }
-            } else {
-                trocaJogadorAtual();
-            }
-
-        } else {
-            trocaJogadorAtual();
         }
 
         /**
@@ -182,6 +169,7 @@ public class Regras {
         }
 
         incrementaTurno();
+        trocaJogadorAtual();
         verificaFimDeJogo();
     }
 
@@ -806,6 +794,7 @@ public class Regras {
                 boardChangedListener.onGameFinished(JOGADOR_DOIS, turnoAtual);
             }
             
+            jogoFinalizado = true;
             return true;
         }
         
@@ -814,6 +803,7 @@ public class Regras {
                 boardChangedListener.onGameFinished(JOGADOR_UM, turnoAtual);
             }
             
+            jogoFinalizado = true;
             return true;
         }
         

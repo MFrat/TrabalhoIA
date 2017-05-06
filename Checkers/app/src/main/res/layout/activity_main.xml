@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mfratane.checkersinterface.activity.MainActivity">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"/>
+
+    <FrameLayout
+        android:id="@+id/filterLayer"
+        android:alpha="0.9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_verde"/>
+
+    <LinearLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:id="@+id/layoutJogador1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/player1Text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Humano"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_weight="3"/>
+
+            <ImageView
+                android:id="@+id/player1Image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:src="@drawable/ic_player" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/layoutJogador2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/player2Image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_ia"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:id="@+id/player2Text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="BOT"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_weight="3"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

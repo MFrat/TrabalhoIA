@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         //Regras regras = new Regras(".\\testes\\testePosPossiveisPeca\\testePosPossiveis7.txt");
-        Regras regras = new Regras();//"testeCaptura1.txt");//"testeCaptura1.txt");
+        Regras regras = new Regras("testeCaptura1.txt");//"testeCaptura1.txt");
         
         regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
             @Override
@@ -18,6 +18,7 @@ public class Main {
             @Override
             public void onGameFinished(int vencedor, int causa) {
                 System.out.println("Jogo acabou!");
+                System.out.println(regras.getTabuleiro().toString());
             }
 
             @Override
@@ -79,7 +80,7 @@ public class Main {
     }
 
     public static void jogarHumanoVsBot(Regras regras) {
-        Bot botPl2 = new Bot(regras, Bot.Dificuldade.CEM_CONTO_QUE_ALINE_NAO_GANHA, Regras.JOGADOR_DOIS);
+        Bot botPl2 = new Bot(regras, Bot.Dificuldade.MEDIO, Regras.JOGADOR_DOIS);
         Humano humanoPl1 = new Humano(regras, Regras.JOGADOR_UM);
         //Humano humanoPl2 = new Humano(regras, Regras.JOGADOR_DOIS);
 
@@ -88,7 +89,7 @@ public class Main {
             if (regras.getJogadorAtual() == humanoPl1.getTime()) {
                 humanoJoga(humanoPl1, regras);
             } else {
-                botPl2.Jogar();
+                botPl2.jogar();
                 //humanoJoga(humanoPl2, regras);
             }
         }

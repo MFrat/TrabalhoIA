@@ -10,7 +10,7 @@ public class Jogador {
     protected final int time;
     private JogadorListener jogadorListener;
     
-    public Jogador(Regras regras,int time){
+    public Jogador(Regras regras, int time){
         this.regras = regras;
         this.time = time;
         
@@ -28,7 +28,9 @@ public class Jogador {
         Posicao posIni = new Posicao(iIni, jIni);
         Posicao posFim = new Posicao(iFim, jFim);
         regras.moverPeca(posIni, posFim);
-        jogadorListener.jogadaFinalizada();
+        if(jogadorListener != null){
+            jogadorListener.jogadaFinalizada();
+        }
     }
     
     public int consultarPosicao(int i, int j){

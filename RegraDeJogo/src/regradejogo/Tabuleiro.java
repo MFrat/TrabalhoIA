@@ -110,6 +110,24 @@ public class Tabuleiro {
 
         br.close();
     }
+    
+    public int nPecasJogador(int time){
+        int counter = 0;
+        
+        for(int i = 0; i < DIMEN; i++){
+            for(int j = 0; j < DIMEN; j++){
+                Peca peca = getPeca(new Posicao(i, j));
+                if(peca != null){
+                    if(peca.getTime() == time){
+                     counter++;
+                    }
+                }
+                    
+            }
+        }
+        
+        return counter;
+    }
 
     /**
      * Inicializa tabuleiro com as peças de cada jogador no leyout clássico do

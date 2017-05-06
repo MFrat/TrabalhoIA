@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.mfratane.checkersinterface.fragment.HumanVsBotFragment">
+
+    <com.mfratane.boardview.BoardView
+        android:id="@+id/board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:clickAnabled="true"
+        android:layout_gravity="center"
+        app:tileMarkingEnabled="true"
+        app:darkTileImage="@drawable/dark_tile"
+        app:lightTileImage="@drawable/light_tile"
+        app:markedTileColor="@android:color/holo_blue_light"
+        app:invalidPosClickColor="@android:color/holo_red_dark"
+        app:tileMarkingAnimation="IterativeFading"/>
+
+</FrameLayout>

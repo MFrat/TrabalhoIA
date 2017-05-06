@@ -40,15 +40,16 @@ public class Bot extends Jogador {
 
     }
 
-    public void Jogar() {
+    public Jogada jogar() {
         Regras regra_auxiliar;
         proximaJogada = null;
         regra_auxiliar = regras.copia();
         possibilidades = 0;
-        System.out.println(minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1));
-        System.out.println(possibilidades);
-
+        minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
+        //System.out.println(possibilidades);
         regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
+        
+        return proximaJogada;
     }
     
     public int goku_mode(Regras regra) { //UTILITY COM PESO PARA DAMA
