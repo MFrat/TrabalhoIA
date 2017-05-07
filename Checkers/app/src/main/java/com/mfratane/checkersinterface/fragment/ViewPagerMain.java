@@ -77,7 +77,7 @@ public class ViewPagerMain extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), GameAcitivty.class);
+                Intent intent = GameAcitivty.factoryIntent(getContext(), gameMode);
                 startActivity(intent);
             }
         });
