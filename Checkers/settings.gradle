@@ -1,1 +1,3 @@
-include ':app', ':BoardView'
+include ':app'
+
+//project(':boardView').projectDir = new File('D:\\Arquivos\\Documents\\GitHub\\BoardView')

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CheckersInterface</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="end_game">Fim de jogo</string>
+    <string name="human">Humano</string>
+    <string name="bot">Bot</string>
 </resources>

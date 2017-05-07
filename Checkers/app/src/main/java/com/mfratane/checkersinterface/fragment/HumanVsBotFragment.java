@@ -22,12 +22,8 @@ import regradejogo.Posicao;
 import regradejogo.Regras;
 import regradejogo.Tabuleiro;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HumanVsBotFragment extends Fragment {
 
-    private Regras regras;
+public class HumanVsBotFragment extends GameFragment {
     private Jogador jogador;
     private Bot bot;
 
@@ -54,15 +50,22 @@ public class HumanVsBotFragment extends Fragment {
 
         BoardView boardView = (BoardView) view.findViewById(R.id.board);
 
+        //Implemento listener do jogador.
         jogador.setJogadorListener(new Jogador.JogadorListener() {
             @Override
             public void jogadaFinalizada() {
+                //Assim que a jogador termina a jogada, o bot joga.
+
+                //TODO adicionar delay.
+                //TODO colocar jogada do bot numa thread.
                 if(!regras.isJogoFinalizado()) {
                     bot.jogar();
                 }
             }
         });
 
+
+        //Implementa o listener das regras.
         regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
             @Override
             public void onPieceMoved(Posicao posicao, Posicao posicao1) {
@@ -71,7 +74,7 @@ public class HumanVsBotFragment extends Fragment {
 
             @Override
             public void onGameFinished(int i, int i1) {
-                Toast.makeText(getContext(), "Jogo acabou", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.end_game, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -81,16 +84,16 @@ public class HumanVsBotFragment extends Fragment {
 
             @Override
             public void onKing(int i, int i1, int i2) {
-                //boardView.removePiece(i, i2);
-                //boardView.setPiece(i, i1, i2 == Regras.JOGADOR_DOIS? R.drawable.pt_dama_2 : R.drawable.psdb_dama);
+                boardView.changePieceImage(i, i1, i2 == Regras.JOGADOR_UM? R.drawable.psdb_dama : R.drawable.pt_dama_2);
             }
         });
 
+        //Implementa o listener do tabuleiro.
         boardView.setBoardListener(new BoardView.BoardListener() {
             @Override
             public void onClickPiece(BoardView.Pos pos) {
                 List<Posicao> posicaoList = jogador.getPosPossiveis(new Posicao(pos.getI(), pos.getJ()));
-                List<BoardView.Pos> posList = new ArrayList<BoardView.Pos>();
+                List<BoardView.Pos> posList = new ArrayList<>();
 
                 for(Posicao posicao : posicaoList){
                     posList.add(new BoardView.Pos(posicao.getI(), posicao.getJ()));
@@ -105,25 +108,8 @@ public class HumanVsBotFragment extends Fragment {
             }
         });
 
-        setBoard(boardView);
+        setBoard(boardView, jogador);
 
         return view;
     }
-
-    private void setBoard(BoardView board){
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                int pos = jogador.consultarPosicao(i, j);
-
-                if(pos == Tabuleiro.PECA_TIME1){
-                    board.setPiece(i, j, R.drawable.pt_peao_2);
-                }
-
-                if(pos == Tabuleiro.PECA_TIME2){
-                    board.setPiece(i, j, R.drawable.psdb_peao);
-                }
-            }
-        }
-    }
-
 }

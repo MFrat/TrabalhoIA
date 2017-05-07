@@ -3,10 +3,10 @@
 
     <translate android:duration="300"
         android:fromXDelta="-100%"
-        android:toXDelta="3%"/>
+        android:toXDelta="5%"/>
 
     <translate android:duration="50"
-        android:fromXDelta="3%"
+        android:fromXDelta="5%"
         android:toXDelta="0%"
         android:startOffset="300"/>
 </set>

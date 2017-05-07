@@ -72,18 +72,18 @@ public class MainActivity extends AppCompatActivity {
         if(gameMode == BOTVSBOT){
             player1.setImageResource(R.drawable.ic_ia);
             player2.setImageResource(R.drawable.ic_ia);
-            player1Text.setText("BOT");
-            player2Text.setText("BOT");
+            player1Text.setText(R.string.bot);
+            player2Text.setText(R.string.bot);
         }else if(gameMode == HUMANVSHUMAN){
             player1.setImageResource(R.drawable.ic_player);
             player2.setImageResource(R.drawable.ic_player);
-            player1Text.setText("Humano");
-            player2Text.setText("Humano");
+            player1Text.setText(R.string.human);
+            player2Text.setText(R.string.human);
         }else{
             player1.setImageResource(R.drawable.ic_player);
             player2.setImageResource(R.drawable.ic_ia);
-            player1Text.setText("Humano");
-            player2Text.setText("BOT");
+            player1Text.setText(R.string.human);
+            player2Text.setText(R.string.bot);
         }
     }
 
