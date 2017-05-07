@@ -16,10 +16,9 @@ import com.mfratane.checkersinterface.activity.GameAcitivty;
 import static com.mfratane.checkersinterface.util.Constants.*;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Contra o ViewPager da tela inicial.
  */
 public class ViewPagerMain extends Fragment {
-
     private int gameMode;
 
     public ViewPagerMain() {

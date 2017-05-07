@@ -1,12 +1,20 @@
 package com.mfratane.checkersinterface.util;
 
-/**
- * Created by Max on 05/05/2017.
- */
-
 public class Constants {
     public static final String GAME_MODE = "gameMode";
+
+    /**
+     * Bot contra bot.
+     */
     public static final int BOTVSBOT = 0;
+
+    /**
+     * Bot contra humano.
+     */
     public static final int BOTVSHUMAN = 1;
+
+    /**
+     * Humano contra humano.
+     */
     public static final int HUMANVSHUMAN = 2;
 }

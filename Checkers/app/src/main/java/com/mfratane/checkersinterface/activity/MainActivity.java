@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setUpViewPager();
     }
 
+    /**
+     * Monta o ViewPager.
+     */
     private void setUpViewPager(){
         final ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         List<Fragment> fragments = getFragments();
@@ -62,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Seta os textos e imagens para cada tipo de jogo selcionado no ViewPager.
+     * @param gameMode tipo de jogo.
+     */
     private void setResources(int gameMode){
         ImageView player1 = (ImageView) findViewById(R.id.player1Image);
         ImageView player2 = (ImageView) findViewById(R.id.player2Image);
@@ -87,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Retorna uma lista de fragments que irão ser mostrados no ViewPager.
+     * @return instancia de List<Fragment>
+     */
     private List<Fragment> getFragments(){
         List<Fragment> list = new ArrayList<>();
 
@@ -97,22 +108,31 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    /**
+     * Anima os layouts dos jogadores.
+     */
     private void animPlayersLayouts(){
         View viewPlayer1 = findViewById(R.id.layoutJogador1);
         View viewPlayer2 = findViewById(R.id.layoutJogador2);
 
         animatePlayer1(viewPlayer1);
         animatePlayer2(viewPlayer2);
-
-
     }
 
+    /**
+     * Animação para o jogador 1
+     * @param view
+     */
     private void animatePlayer1(View view){
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.left_to_right);
 
         view.startAnimation(animation);
     }
 
+    /**
+     * Animação para o jogador 2
+     * @param view
+     */
     private void animatePlayer2(View view){
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.right_to_left);
 

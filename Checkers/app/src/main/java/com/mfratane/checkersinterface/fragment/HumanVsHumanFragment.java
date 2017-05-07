@@ -19,7 +19,9 @@ import regradejogo.Jogador;
 import regradejogo.Posicao;
 import regradejogo.Regras;
 
-
+/**
+ * Fragment que implementa as funcionalidades da interface de jogo de um Humano contra outro humano.
+ */
 public class HumanVsHumanFragment extends GameFragment {
     private Jogador jogador;
 
@@ -42,51 +44,11 @@ public class HumanVsHumanFragment extends GameFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game, container, false);
 
-        BoardView boardView = (BoardView) view.findViewById(R.id.board);
+        boardView = (BoardView) view.findViewById(R.id.board);
 
+        regras.setOnBoardChangedListener(getRegrasListener());
 
-        //Implementa o listener das regras.
-        regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
-            @Override
-            public void onPieceMoved(Posicao posicao, Posicao posicao1) {
-                boardView.movePiece(new BoardView.Pos(posicao.getI(), posicao.getJ()), new BoardView.Pos(posicao1.getI(), posicao1.getJ()));
-            }
-
-            @Override
-            public void onGameFinished(int i, int i1) {
-                Toast.makeText(getContext(), R.string.end_game, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPieceRemoved(Posicao posicao) {
-                boardView.removePiece(posicao.getI(), posicao.getJ());
-            }
-
-            @Override
-            public void onKing(int i, int i1, int i2) {
-                boardView.changePieceImage(i, i1, i2 == Regras.JOGADOR_UM? R.drawable.psdb_dama : R.drawable.pt_dama_2);
-            }
-        });
-
-        //Implementa o listener do tabuleiro.
-        boardView.setBoardListener(new BoardView.BoardListener() {
-            @Override
-            public void onClickPiece(BoardView.Pos pos) {
-                List<Posicao> posicaoList = jogador.getPosPossiveis(new Posicao(pos.getI(), pos.getJ()));
-                List<BoardView.Pos> posList = new ArrayList<>();
-
-                for(Posicao posicao : posicaoList){
-                    posList.add(new BoardView.Pos(posicao.getI(), posicao.getJ()));
-                }
-
-                boardView.markTiles(posList);
-            }
-
-            @Override
-            public void onClickTile(BoardView.Pos pos, BoardView.Pos pos1) {
-                jogador.realizarJogada(pos.getI(), pos.getJ(), pos1.getI(), pos1.getJ());
-            }
-        });
+        boardView.setBoardListener(getBoardListener(jogador));
 
         setBoard(boardView, jogador);
 

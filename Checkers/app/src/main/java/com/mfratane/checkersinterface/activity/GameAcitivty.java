@@ -15,10 +15,24 @@ import static com.mfratane.checkersinterface.util.Constants.BOTVSHUMAN;
 import static com.mfratane.checkersinterface.util.Constants.GAME_MODE;
 import static com.mfratane.checkersinterface.util.Constants.HUMANVSHUMAN;
 
+/**
+ * Activity que segura o fragment que controla um jogo.
+ * {@link HumanVsBotFragment}
+ * {@link HumanVsHumanFragment}
+ */
 public class GameAcitivty extends AppCompatActivity {
-
+    /**
+     * Tipo do jogo.
+     * {@link com.mfratane.checkersinterface.util.Constants}
+     */
     private int gameMode;
 
+    /**
+     * Factory method que retorna uma instancia de Intent.
+     * @param context Instancia de Context.
+     * @param gameMode Tipo de jogo.
+     * @return instancia de Intent.
+     */
     public static Intent factoryIntent(Context context, int gameMode){
         Intent intent = new Intent(context, GameAcitivty.class);
 
@@ -48,6 +62,11 @@ public class GameAcitivty extends AppCompatActivity {
         }
     }
 
+    /**
+     * Retorna um Fragment de acordo com o tipo de jogo.
+     * @param gameMode
+     * @return
+     */
     private Fragment getFragment(int gameMode){
         switch (gameMode){
             case BOTVSBOT:

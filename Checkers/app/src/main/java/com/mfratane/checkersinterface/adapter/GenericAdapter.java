@@ -8,14 +8,18 @@ import android.support.v4.view.PagerAdapter;
 import java.util.List;
 
 /**
- * Created by Max on 05/05/2017.
+ * Adapter generico.
  */
-
 public class GenericAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
     private int count;
 
-
+    /**
+     *
+     * @param fm FragmentManager
+     * @param fragments Lista com fragments a serem mostrados.
+     * @param count numero de elementos a serem mostrados.
+     */
     public GenericAdapter(FragmentManager fm, List<Fragment> fragments, int count) {
         super(fm);
         this.fragments = fragments;

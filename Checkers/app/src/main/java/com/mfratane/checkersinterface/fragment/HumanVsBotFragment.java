@@ -1,9 +1,11 @@
 package com.mfratane.checkersinterface.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ import regradejogo.Regras;
 import regradejogo.Tabuleiro;
 
 
+/**
+ * Fragment que implementa as funcionalidades da interface de jogo de um Humano contra um bot.
+ */
 public class HumanVsBotFragment extends GameFragment {
     private Jogador jogador;
     private Bot bot;
@@ -48,10 +53,26 @@ public class HumanVsBotFragment extends GameFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game, container, false);
 
-        BoardView boardView = (BoardView) view.findViewById(R.id.board);
+        boardView = (BoardView) view.findViewById(R.id.board);
 
         //Implemento listener do jogador.
-        jogador.setJogadorListener(new Jogador.JogadorListener() {
+        jogador.setJogadorListener(getJogadorListener());
+
+        regras.setOnBoardChangedListener(getRegrasListener());
+
+        boardView.setBoardListener(getBoardListener(jogador));
+
+        setBoard(boardView, jogador);
+
+        return view;
+    }
+
+    /**
+     * Implementa o listener {@link regradejogo.Jogador.JogadorListener}.
+     * @return instancia de {@link regradejogo.Jogador.JogadorListener}.
+     */
+    private Jogador.JogadorListener getJogadorListener(){
+        return new Jogador.JogadorListener() {
             @Override
             public void jogadaFinalizada() {
                 //Assim que a jogador termina a jogada, o bot joga.
@@ -62,54 +83,6 @@ public class HumanVsBotFragment extends GameFragment {
                     bot.jogar();
                 }
             }
-        });
-
-
-        //Implementa o listener das regras.
-        regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
-            @Override
-            public void onPieceMoved(Posicao posicao, Posicao posicao1) {
-                boardView.movePiece(new BoardView.Pos(posicao.getI(), posicao.getJ()), new BoardView.Pos(posicao1.getI(), posicao1.getJ()));
-            }
-
-            @Override
-            public void onGameFinished(int i, int i1) {
-                Toast.makeText(getContext(), R.string.end_game, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPieceRemoved(Posicao posicao) {
-                boardView.removePiece(posicao.getI(), posicao.getJ());
-            }
-
-            @Override
-            public void onKing(int i, int i1, int i2) {
-                boardView.changePieceImage(i, i1, i2 == Regras.JOGADOR_UM? R.drawable.psdb_dama : R.drawable.pt_dama_2);
-            }
-        });
-
-        //Implementa o listener do tabuleiro.
-        boardView.setBoardListener(new BoardView.BoardListener() {
-            @Override
-            public void onClickPiece(BoardView.Pos pos) {
-                List<Posicao> posicaoList = jogador.getPosPossiveis(new Posicao(pos.getI(), pos.getJ()));
-                List<BoardView.Pos> posList = new ArrayList<>();
-
-                for(Posicao posicao : posicaoList){
-                    posList.add(new BoardView.Pos(posicao.getI(), posicao.getJ()));
-                }
-
-                boardView.markTiles(posList);
-            }
-
-            @Override
-            public void onClickTile(BoardView.Pos pos, BoardView.Pos pos1) {
-                jogador.realizarJogada(pos.getI(), pos.getJ(), pos1.getI(), pos1.getJ());
-            }
-        });
-
-        setBoard(boardView, jogador);
-
-        return view;
+        };
     }
 }
