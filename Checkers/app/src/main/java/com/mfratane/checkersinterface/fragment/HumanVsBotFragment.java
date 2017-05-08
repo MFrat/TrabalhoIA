@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import regradejogo.Bot;
+import regradejogo.Humano;
 import regradejogo.Jogada;
 import regradejogo.Jogador;
 import regradejogo.Posicao;
@@ -29,7 +30,7 @@ import regradejogo.Tabuleiro;
  * Fragment que implementa as funcionalidades da interface de jogo de um Humano contra um bot.
  */
 public class HumanVsBotFragment extends GameFragment {
-    private Jogador jogador;
+    private Humano jogador;
     private Bot bot;
 
 
@@ -37,12 +38,20 @@ public class HumanVsBotFragment extends GameFragment {
         // Required empty public constructor
     }
 
+    public static HumanVsBotFragment factory(Bundle bundle){
+        HumanVsBotFragment humanVsBotFragment = new HumanVsBotFragment();
+
+        humanVsBotFragment.setArguments(bundle);
+
+        return humanVsBotFragment;
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        jogador = new Jogador(regras, Regras.JOGADOR_UM);
+        jogador = new Humano(regras, Regras.JOGADOR_UM);
         bot = new Bot(regras, Bot.Dificuldade.MEDIO, Regras.JOGADOR_DOIS);
     }
 

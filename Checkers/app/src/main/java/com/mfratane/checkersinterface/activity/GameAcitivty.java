@@ -79,13 +79,14 @@ public class GameAcitivty extends AppCompatActivity {
      * @return instancia de {@link Fragment}.
      */
     private Fragment getFragment(int gameMode){
+        Bundle bundle = getIntent().getExtras();
         switch (gameMode){
             case BOTVSBOT:
-                return new HumanVsBotFragment();
+                return HumanVsBotFragment.factory(bundle);
             case HUMANVSHUMAN:
-                return new HumanVsHumanFragment();
+                return HumanVsHumanFragment.factory(bundle);
         }
 
-        return new HumanVsBotFragment();
+        return HumanVsBotFragment.factory(bundle);
     }
 }
