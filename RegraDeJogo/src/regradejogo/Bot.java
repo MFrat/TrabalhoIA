@@ -12,14 +12,15 @@ import java.util.List;
  * @author Max
  */
 public class Bot extends Jogador {
-
     private int numero_iteracoes;
-    Jogada proximaJogada;
-    int possibilidades;
+    private Jogada proximaJogada;
+    private int possibilidades;
+    private int time;
 
     public Bot(Regras regras, Dificuldade dificuldade, int time) {
-
-        super(regras, time);
+        super(regras);
+        
+        this.time = time;
 
         switch (dificuldade) {
             case FACIL:
@@ -28,16 +29,14 @@ public class Bot extends Jogador {
             case MEDIO:
                 numero_iteracoes = 4;
                 break;
-            case CEM_CONTO_QUE_ALINE_NAO_GANHA:
-                numero_iteracoes = 8;
+            case DIFÍCIL:
+                numero_iteracoes = 6;
                 break;
         }
     }
 
     public enum Dificuldade {
-
-        FACIL, MEDIO, CEM_CONTO_QUE_ALINE_NAO_GANHA
-
+        FACIL, MEDIO, DIFÍCIL
     }
 
     public Jogada jogar() {

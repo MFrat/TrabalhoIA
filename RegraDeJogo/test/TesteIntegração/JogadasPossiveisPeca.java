@@ -16,7 +16,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import regradejogo.Humano;
 import regradejogo.Jogada;
-import regradejogo.Jogador;
 import regradejogo.Peca;
 import regradejogo.Posicao;
 import regradejogo.Regras;
@@ -28,7 +27,7 @@ import regradejogo.Regras;
 public class JogadasPossiveisPeca {
     private Regras regras;
     private List<Jogada> oraculo;
-    private Jogador jogador;
+    private Humano jogador;
     private String pecaComJogada = "./testes/testeMovimentacaoPeca/ComJogada/";
     private String pecaSemJogada = "./testes/testeMovimentacaoPeca/SemJogada/";
     

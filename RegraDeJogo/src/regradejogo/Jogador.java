@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import regradejogo.*;
 
-public class Jogador {
+abstract class Jogador {
     //Instancia de Regra na qual o jogador está respeitando.
     protected final Regras regras;
-    protected final int time;
+    protected int time;
     private JogadorListener jogadorListener;
     
     public Jogador(Regras regras, int time){
         this.regras = regras;
         this.time = time;
-        
     }
+    
+    public Jogador(Regras regras){
+        this.regras = regras;
+    }
+        
     
     public interface JogadorListener{
         public void jogadaFinalizada();
