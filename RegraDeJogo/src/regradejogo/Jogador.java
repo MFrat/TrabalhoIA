@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import regradejogo.*;
 
-abstract class Jogador {
+public abstract class Jogador {
     //Instancia de Regra na qual o jogador está respeitando.
     protected final Regras regras;
     protected int time;
