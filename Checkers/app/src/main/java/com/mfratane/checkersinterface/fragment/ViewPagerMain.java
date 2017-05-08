@@ -16,7 +16,7 @@ import com.mfratane.checkersinterface.activity.GameAcitivty;
 import static com.mfratane.checkersinterface.util.Constants.*;
 
 /**
- * Contra o ViewPager da tela inicial.
+ * Controla o ViewPager da tela inicial.
  */
 public class ViewPagerMain extends Fragment {
     private int gameMode;
@@ -26,9 +26,9 @@ public class ViewPagerMain extends Fragment {
     }
 
     /**
-     * Factory method. Create a instance of ViewPagerMain.
-     * @param gameMode
-     * @return instance of ViewPagerMain
+     * Factory method. Cria uma instancia de {@link ViewPagerMain}.
+     * @param gameMode modo de jogo.
+     * @return Instancia de {@link ViewPagerMain}
      */
     public static ViewPagerMain factory(int gameMode){
         ViewPagerMain viewPagerMain = new ViewPagerMain();
@@ -76,7 +76,8 @@ public class ViewPagerMain extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = GameAcitivty.factoryIntent(getContext(), gameMode);
+                Intent intent = GameAcitivty.factoryIntent(getContext(), gameMode, R.drawable.pt_peao_2, R.drawable.psdb_peao,
+                        R.drawable.pt_dama_2, R.drawable.psdb_dama);
                 startActivity(intent);
             }
         });

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mfratane.checkersinterface.R;
+import com.mfratane.checkersinterface.fragment.GameFragment;
 import com.mfratane.checkersinterface.fragment.HumanVsBotFragment;
 import com.mfratane.checkersinterface.fragment.HumanVsHumanFragment;
 
@@ -27,17 +28,27 @@ public class GameAcitivty extends AppCompatActivity {
      */
     private int gameMode;
 
+    public static final String PECA_JOGADOR1 = "pecaJogador1";
+    public static final String PECA_JOGADOR2 = "pecaJogador2";
+    public static final String DAMA_JOGADOR1 = "damaJogador1";
+    public static final String DAMA_JOGADOR2 = "damaJogador2";
+
     /**
      * Factory method que retorna uma instancia de Intent.
      * @param context Instancia de Context.
      * @param gameMode Tipo de jogo.
      * @return instancia de Intent.
      */
-    public static Intent factoryIntent(Context context, int gameMode){
+    public static Intent factoryIntent(Context context, int gameMode, int pecaJogador1,
+                                       int pecaJogador2, int damaJogador1, int damaJogador2){
         Intent intent = new Intent(context, GameAcitivty.class);
 
         Bundle bundle = new Bundle();
         bundle.putInt(GAME_MODE, gameMode);
+        bundle.putInt(PECA_JOGADOR1, pecaJogador1);
+        bundle.putInt(PECA_JOGADOR2, pecaJogador2);
+        bundle.putInt(DAMA_JOGADOR1, damaJogador1);
+        bundle.putInt(DAMA_JOGADOR2, damaJogador2);
 
         intent.putExtras(bundle);
 
@@ -64,8 +75,8 @@ public class GameAcitivty extends AppCompatActivity {
 
     /**
      * Retorna um Fragment de acordo com o tipo de jogo.
-     * @param gameMode
-     * @return
+     * @param gameMode modo de jogo.
+     * @return instancia de {@link Fragment}.
      */
     private Fragment getFragment(int gameMode){
         switch (gameMode){

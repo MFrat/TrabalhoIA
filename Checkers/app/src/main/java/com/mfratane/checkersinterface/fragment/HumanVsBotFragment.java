@@ -42,7 +42,6 @@ public class HumanVsBotFragment extends GameFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        regras = new Regras();
         jogador = new Jogador(regras, Regras.JOGADOR_UM);
         bot = new Bot(regras, Bot.Dificuldade.MEDIO, Regras.JOGADOR_DOIS);
     }
@@ -55,7 +54,6 @@ public class HumanVsBotFragment extends GameFragment {
 
         boardView = (BoardView) view.findViewById(R.id.board);
 
-        //Implemento listener do jogador.
         jogador.setJogadorListener(getJogadorListener());
 
         regras.setOnBoardChangedListener(getRegrasListener());
@@ -84,5 +82,10 @@ public class HumanVsBotFragment extends GameFragment {
                 }
             }
         };
+    }
+
+    @Override
+    protected void endGameCallback(int i, int j) {
+
     }
 }

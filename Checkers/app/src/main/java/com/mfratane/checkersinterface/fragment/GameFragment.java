@@ -1,9 +1,12 @@
 package com.mfratane.checkersinterface.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.mfratane.boardview.BoardView;
 import com.mfratane.checkersinterface.R;
+import com.mfratane.checkersinterface.activity.GameAcitivty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +34,44 @@ public abstract class GameFragment extends BaseFragment {
     protected BoardView boardView;
 
     /**
+     * Id da imagem da peça do jogadore 1.
+     */
+    protected int player1Piece;
+
+    /**
+     * Id da imagem da peça do jogadore 2.
+     */
+    protected int player2Piece;
+
+    /**
+     * id da imagem da dama dos jogador 1.
+     */
+    protected int player1King;
+
+    /**
+     * id da imagem da dama dos jogador 1.
+     */
+    protected int player2King;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+
+        regras = new Regras();
+
+        if(bundle != null){
+            player1Piece = bundle.getInt(GameAcitivty.PECA_JOGADOR1);
+            player1King = bundle.getInt(GameAcitivty.DAMA_JOGADOR1);
+            player2Piece = bundle.getInt(GameAcitivty.PECA_JOGADOR2);
+            player2King = bundle.getInt(GameAcitivty.DAMA_JOGADOR2);
+        }
+    }
+
+    /**
      * Monta o tabuleiro a partir de uma regra.
-     * @param board Instancia de BoardView.
+     * @param board Instancia de {@link BoardView}.
      */
     protected void setBoard(BoardView board, Jogador jogador){
         for(int i = 0; i < 8; i++){
@@ -40,11 +79,11 @@ public abstract class GameFragment extends BaseFragment {
                 int pos = jogador.consultarPosicao(i, j);
 
                 if(pos == Tabuleiro.PECA_TIME1){
-                    board.setPiece(i, j, R.drawable.pt_peao_2);
+                    board.setPiece(i, j, player1Piece);
                 }
 
                 if(pos == Tabuleiro.PECA_TIME2){
-                    board.setPiece(i, j, R.drawable.psdb_peao);
+                    board.setPiece(i, j, player2Piece);
                 }
             }
         }
@@ -52,18 +91,19 @@ public abstract class GameFragment extends BaseFragment {
 
     /**
      * Implementa o listener das regras.
-     * @return instancia de interface BoardChangedListener
+     * @return instancia de interface {@link regradejogo.Regras.BoardChangedListener}
      */
     protected Regras.BoardChangedListener getRegrasListener(){
         return new Regras.BoardChangedListener() {
             @Override
             public void onPieceMoved(Posicao posicao, Posicao posicao1) {
-                boardView.movePiece(new BoardView.Pos(posicao.getI(), posicao.getJ()), new BoardView.Pos(posicao1.getI(), posicao1.getJ()));
+                boardView.movePiece(new BoardView.Pos(posicao.getI(), posicao.getJ()),
+                        new BoardView.Pos(posicao1.getI(), posicao1.getJ()));
             }
 
             @Override
             public void onGameFinished(int i, int i1) {
-                toastShort(getContext().getString(R.string.end_game));
+                endGameCallback(i, i1);
             }
 
             @Override
@@ -73,7 +113,7 @@ public abstract class GameFragment extends BaseFragment {
 
             @Override
             public void onKing(int i, int i1, int i2) {
-                boardView.changePieceImage(i, i1, i2 == Regras.JOGADOR_UM? R.drawable.psdb_dama : R.drawable.pt_dama_2);
+                boardView.changePieceImage(i, i1, i2 == Regras.JOGADOR_UM? player2King : player1King);
             }
         };
     }
@@ -81,7 +121,7 @@ public abstract class GameFragment extends BaseFragment {
     /**
      * Implementa o listener do tabuleiro.
      * @param jogador Instancia de Jogador.
-     * @return instancia da interface BoardListener.
+     * @return instancia da interface {@link com.mfratane.boardview.BoardView.BoardListener}.
      */
     protected BoardView.BoardListener getBoardListener(Jogador jogador){
         return new BoardView.BoardListener() {
@@ -103,5 +143,7 @@ public abstract class GameFragment extends BaseFragment {
             }
         };
     }
+
+    protected abstract void endGameCallback(int i, int j);
 
 }

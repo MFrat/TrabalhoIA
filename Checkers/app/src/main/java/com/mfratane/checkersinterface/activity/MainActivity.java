@@ -22,6 +22,9 @@ import java.util.List;
 import static com.mfratane.checkersinterface.util.Constants.BOTVSBOT;
 import static com.mfratane.checkersinterface.util.Constants.HUMANVSHUMAN;
 
+/**
+ * Acitivty principal do aplicativo.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Retorna uma lista de fragments que irão ser mostrados no ViewPager.
-     * @return instancia de List<Fragment>
+     * @return instancia de {@link List<Fragment>}
      */
     private List<Fragment> getFragments(){
         List<Fragment> list = new ArrayList<>();

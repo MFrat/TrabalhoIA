@@ -34,7 +34,6 @@ public class HumanVsHumanFragment extends GameFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        regras = new Regras();
         jogador = new Jogador(regras, Regras.JOGADOR_UM);
     }
 
@@ -53,5 +52,10 @@ public class HumanVsHumanFragment extends GameFragment {
         setBoard(boardView, jogador);
 
         return view;
+    }
+
+    @Override
+    protected void endGameCallback(int i, int j) {
+
     }
 }
