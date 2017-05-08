@@ -17,7 +17,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import regradejogo.Humano;
 import regradejogo.Jogada;
-import regradejogo.Peca;
 import regradejogo.Posicao;
 import regradejogo.Regras;
 

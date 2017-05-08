@@ -7,8 +7,7 @@ import java.util.List;
  *
  * @author Max
  */
-public class Jogada {
-
+class Jogada {
     private Peca pecaCapturada;
     private Peca pecaMovida;
     private Posicao posInicial;
