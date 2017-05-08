@@ -3,7 +3,6 @@ package com.mfratane.checkersinterface.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
 import java.util.List;
 

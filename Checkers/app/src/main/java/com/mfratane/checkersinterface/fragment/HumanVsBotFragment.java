@@ -1,29 +1,19 @@
 package com.mfratane.checkersinterface.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mfratane.boardview.BoardView;
 import com.mfratane.checkersinterface.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import regradejogo.Bot;
 import regradejogo.Humano;
-import regradejogo.Jogada;
 import regradejogo.Jogador;
-import regradejogo.Posicao;
 import regradejogo.Regras;
-import regradejogo.Tabuleiro;
 
 
 /**
@@ -52,7 +42,7 @@ public class HumanVsBotFragment extends GameFragment {
         super.onCreate(savedInstanceState);
 
         jogador = new Humano(regras, Regras.JOGADOR_UM);
-        bot = new Bot(regras, Bot.Dificuldade.MEDIO, Regras.JOGADOR_DOIS);
+        bot = new Bot(regras, Bot.Dificuldade.DIFÍCIL, Regras.JOGADOR_DOIS);
     }
 
     @Override
@@ -95,6 +85,6 @@ public class HumanVsBotFragment extends GameFragment {
 
     @Override
     protected void endGameCallback(int i, int j) {
-
+        toastShort("O jogo acabou!");
     }
 }

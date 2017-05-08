@@ -6,18 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mfratane.boardview.BoardView;
 import com.mfratane.checkersinterface.R;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import regradejogo.Bot;
 import regradejogo.Humano;
-import regradejogo.Jogador;
-import regradejogo.Posicao;
 import regradejogo.Regras;
 
 /**
@@ -64,6 +58,6 @@ public class HumanVsHumanFragment extends GameFragment {
 
     @Override
     protected void endGameCallback(int i, int j) {
-
+        toastShort("O jogo acabou!");
     }
 }

@@ -2,16 +2,13 @@ package com.mfratane.checkersinterface.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 import com.mfratane.boardview.BoardView;
-import com.mfratane.checkersinterface.R;
 import com.mfratane.checkersinterface.activity.GameAcitivty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import regradejogo.Jogada;
 import regradejogo.Jogador;
 import regradejogo.Posicao;
 import regradejogo.Regras;
