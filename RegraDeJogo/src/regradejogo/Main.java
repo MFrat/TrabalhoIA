@@ -32,8 +32,25 @@ public class Main {
             }
         });
         regras.setJogadorAtual(Regras.JOGADOR_UM);
-
-        jogarHumanoVsBot(regras);
+	System.out.println("[1] Humano X Bot;\n[2] Bot X Bot;");
+	Scanner in = new Scanner(System.in);
+	int deci = in.nextInt();
+	in.nextLine();
+	while(true){
+		switch(deci){
+			case 1:
+				jogarHumanoVsBot(regras);
+				return;
+			case 2:
+				jogarBotVsBot(regras);
+				return;
+			default:
+				System.out.println("Valor invalido, digite novamente: ");
+				deci=in.nextInt();
+				in.nextLine();
+				break;
+		}
+	}
     }
 
 /*    public static void jogarHumanoVsHumano(Regras regras) {
@@ -80,8 +97,45 @@ public class Main {
     }
 
     public static void jogarHumanoVsBot(Regras regras) {
-        Bot botPl2 = new Bot(regras, Bot.Dificuldade.MEDIO, Regras.JOGADOR_DOIS);
-	System.out.println("bot é " + Regras.JOGADOR_DOIS + " e time é " + botPl2.getTime());
+	System.out.println("Digite a dificuldade para o bot: ");
+	System.out.println("1: Fácil; 2: Médio; 3: Difícil");
+	Scanner in = new Scanner(System.in);
+	int dificuldade;
+	Bot botPl2 = null;
+	try{
+		dificuldade = in.nextInt();
+		in.nextLine();
+		boolean inva = true;
+		while(inva){
+			switch (dificuldade){
+			       case 1:
+				   botPl2 = new Bot(regras,Bot.Dificuldade.FACIL,Regras.JOGADOR_DOIS);
+				   inva = false;
+				   break;
+			       case 2:
+				   botPl2 = new Bot(regras,Bot.Dificuldade.MEDIO,Regras.JOGADOR_DOIS);
+				   inva = false;
+				   break;
+			       case 3:
+				   botPl2 = new Bot(regras,Bot.Dificuldade.DIFÍCIL,Regras.JOGADOR_DOIS);
+				   inva = false;
+				   break;
+				default:
+					System.out.println("Entrada inválida!");
+					System.out.println("Digite a dificuldade para o bot ");
+					System.out.println("1: fácil; 2: Médio; 3: Difícil");
+					dificuldade = in.nextInt();
+					in.nextLine();
+					break;
+			}
+		}
+	}catch(Exception e){
+		System.out.println("Entrada inválida!");
+		System.out.println("Digite a dificuldade para o bot ");
+		System.out.println("1: fácil; 2: Médio; 3: Difícil");
+		dificuldade = in.nextInt();
+	}
+	//System.out.println("bot é " + Regras.JOGADOR_DOIS + " e time é " + botPl2.getTime());
         Humano humanoPl1 = new Humano(regras, Regras.JOGADOR_UM);
         //Humano humanoPl2 = new Humano(regras, Regras.JOGADOR_DOIS);
 
@@ -96,5 +150,97 @@ public class Main {
         }
 
     }
+    
+    public static void jogarBotVsBot(Regras regras){
+           System.out.println("Digite a dificuldade para o jogador 1: ");
+           System.out.println("1: Fácil; 2: Médio; 3: Difícil");
+           Scanner in = new Scanner(System.in);
+           int dificuldade;
+           Bot b1 = null,b2 = null;
+           try{
+               dificuldade = in.nextInt();
+               in.nextLine();
+		boolean inva = true;
+		while(inva){
+		       switch (dificuldade){
+		               case 1:
+		                   b1 = new Bot(regras,Bot.Dificuldade.FACIL,Regras.JOGADOR_UM);
+				   inva = false;
+		                   break;
+		               case 2:
+		                   b1 = new Bot(regras,Bot.Dificuldade.MEDIO,Regras.JOGADOR_UM);
+				   inva = false;
+		                   break;
+		               case 3:
+		                   b1 = new Bot(regras,Bot.Dificuldade.DIFÍCIL,Regras.JOGADOR_UM);
+				   inva = false;
+		                   break;
+				default:
+				   System.out.println("Entrada inválida!");
+				   System.out.println("Digite a dificuldade para o jogador 1: ");
+				   System.out.println("1: fácil; 2: Médio; 3: Difícil");
+				   dificuldade = in.nextInt();
+				   in.nextLine();
+				   break;
+		       }
+		}
+           }catch(Exception e){
+               System.out.println("Entrada inválida!");
+               System.out.println("Digite a dificuldade para o jogador 1: ");
+               System.out.println("1: fácil; 2: Médio; 3: Difícil");
+               dificuldade = in.nextInt();
+           }
+           
+           System.out.println("Digite a dificuldade para o jogador 2: ");
+           System.out.println("1: fácil; 2: Médio; 3: Difícil");
+           try{
+               dificuldade = in.nextInt();
+		in.nextLine();
+		boolean inva = true;
+		while(inva){
+		       switch (dificuldade){
+		               case 1:
+		                   b2 = new Bot(regras,Bot.Dificuldade.FACIL,Regras.JOGADOR_DOIS);
+				   inva = false;
+		                   break;
+		               case 2:
+		                   b2 = new Bot(regras,Bot.Dificuldade.MEDIO,Regras.JOGADOR_DOIS);
+				   inva = false;
+		                   break;
+		               case 3:
+		                   b2 = new Bot(regras,Bot.Dificuldade.DIFÍCIL,Regras.JOGADOR_DOIS);
+				   inva = false;
+		                   break;
+				default:
+					System.out.println("Entrada inválida!");
+				       System.out.println("Digite a dificuldade para o jogador 2: ");
+				       System.out.println("1: fácil; 2: Médio; 3: Difícil");
+				       dificuldade = in.nextInt();
+				       in.nextLine();
+					break;
+		       }
+		}
+           }catch(Exception e){
+               System.out.println("Entrada inválida!");
+               System.out.println("Digite a dificuldade para o jogador 2: ");
+               System.out.println("1: fácil; 2: Médio; 3: Difícil");
+               dificuldade = in.nextInt();
+               in.nextLine();
+           }
+           in.nextLine();
+           while (!regras.isJogoFinalizado()) {
+            System.out.println(regras.getTabuleiro().toString());
+            if (regras.getJogadorAtual() == b1.getTime()) {
+                System.out.println("Tecle enter para ver a jogada do jogador 1: ");
+                in.nextLine();
+                b1.jogar();
+            } else {
+                System.out.println("Tecle enter para ver a jogada do jogador 2: ");
+                in.nextLine();
+                b2.jogar();
+            }
+        }
+           
+}
 
 }
