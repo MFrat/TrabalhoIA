@@ -812,7 +812,7 @@ public class Regras {
 
     /**
      * Verifica todas as peças que estão aptas a se moverem no turno. Peças que
-     * podem capturar são prioredade.
+     * podem capturar são prioridade.
      *
      * @return Lista de peças válidas para o turno.
      */

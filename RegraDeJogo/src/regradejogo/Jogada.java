@@ -12,6 +12,8 @@ class Jogada {
     private Peca pecaMovida;
     private Posicao posInicial;
     private Posicao posFinal;
+    private boolean sucessiva;
+    private Jogada[] proxima;
 
     public Jogada(Peca pecaCapturada, Peca pecaMovida, Posicao posInicial, Posicao posFinal) {
         this.pecaCapturada = pecaCapturada;
