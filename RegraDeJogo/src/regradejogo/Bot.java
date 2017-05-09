@@ -15,12 +15,9 @@ public class Bot extends Jogador {
     private int numero_iteracoes;
     private Jogada proximaJogada;
     private int possibilidades;
-    private int time;
 
     public Bot(Regras regras, Dificuldade dificuldade, int time) {
-        super(regras);
-        
-        this.time = time;
+        super(regras, time);
 
         switch (dificuldade) {
             case FACIL:
@@ -72,7 +69,7 @@ public class Bot extends Jogador {
             if(peca.isDama()) blackGenkidama--;
         }
         int resp = genkidama + blackGenkidama + regra.getnPecasJogador2() - regra.getnPecasJogador1();
-	if(time == regra.JOGADOR_DOIS)return resp;
+	if(this.time == regra.JOGADOR_DOIS)return resp;
 	else return -resp;
     }
     
@@ -87,7 +84,7 @@ public class Bot extends Jogador {
 
         Regras regra_auxiliar;
         Jogada jogadaCandidata;
-        if (regra.getJogadorAtual() == time) {
+        if (regra.getJogadorAtual() == this.time) {
             int value = Integer.MIN_VALUE;
             List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
             for (Peca peca : pecasAptas) {

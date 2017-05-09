@@ -81,6 +81,7 @@ public class Main {
 
     public static void jogarHumanoVsBot(Regras regras) {
         Bot botPl2 = new Bot(regras, Bot.Dificuldade.MEDIO, Regras.JOGADOR_DOIS);
+	System.out.println("bot é " + Regras.JOGADOR_DOIS + " e time é " + botPl2.getTime());
         Humano humanoPl1 = new Humano(regras, Regras.JOGADOR_UM);
         //Humano humanoPl2 = new Humano(regras, Regras.JOGADOR_DOIS);
 
