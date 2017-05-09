@@ -52,12 +52,28 @@ public class Bot extends Jogador {
     }
     
     public int goku_mode(Regras regra) { //UTILITY COM PESO PARA DAMA
-        int genkindama = 0;
-        List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
+        int genkidama = 0, blackGenkidama = 0, jogadorAtual = regra.getJogadorAtual();
+        List<Peca> pecasAptas, pecasAptasOpo;
+	if(jogadorAtual==regra.JOGADOR_DOIS){
+		pecasAptas = regra.getPecasAptasDoJogadorAtual();
+		regra.setJogadorAtual(regra.JOGADOR_UM);
+		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+	}
+	else{
+		pecasAptas = regra.getPecasAptasDoJogadorAtual();
+		regra.setJogadorAtual(regra.JOGADOR_DOIS);
+		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+	}
+	regra.setJogadorAtual(jogadorAtual);
         for (Peca peca : pecasAptas) {
-            if(peca.isDama()) genkindama++;
+            if(peca.isDama()) genkidama++;
         }
-        return genkindama + regra.getnPecasJogador2() - regra.getnPecasJogador1();
+	for (Peca peca : pecasAptasOpo) {
+            if(peca.isDama()) blackGenkidama--;
+        }
+        int resp = genkidama + blackGenkidama + regra.getnPecasJogador2() - regra.getnPecasJogador1();
+	if(time == regra.JOGADOR_DOIS)return resp;
+	else return -resp;
     }
     
     public int utility(Regras regra) {

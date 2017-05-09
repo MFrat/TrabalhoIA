@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         //Regras regras = new Regras(".\\testes\\testePosPossiveisPeca\\testePosPossiveis7.txt");
-        Regras regras = new Regras("testeCaptura1.txt");//"testeCaptura1.txt");
+        Regras regras = new Regras();//"testeCaptura1.txt");//"testeCaptura1.txt");
         
         regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
             @Override
