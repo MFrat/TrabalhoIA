@@ -11,11 +11,7 @@ import android.view.ViewGroup;
 import com.mfratane.boardview.BoardView;
 import com.mfratane.checkersinterface.R;
 
-import regradejogo.Bot;
-import regradejogo.Humano;
-import regradejogo.Jogador;
-import regradejogo.Posicao;
-import regradejogo.Regras;
+import regradejogo.*;
 
 
 /**

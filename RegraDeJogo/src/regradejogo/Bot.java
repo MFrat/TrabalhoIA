@@ -52,14 +52,14 @@ public class Bot extends Jogador {
         int genkidama = 0, blackGenkidama = 0, jogadorAtual = regra.getJogadorAtual();
         List<Peca> pecasAptas, pecasAptasOpo;
 	if(jogadorAtual==regra.JOGADOR_DOIS){
-		pecasAptas = regra.getPecasAptasDoJogadorAtual();
-		regra.setJogadorAtual(regra.JOGADOR_UM);
-		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+            pecasAptas = regra.getPecasAptasDoJogadorAtual();
+            regra.setJogadorAtual(regra.JOGADOR_UM);
+            pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
 	}
 	else{
-		pecasAptas = regra.getPecasAptasDoJogadorAtual();
-		regra.setJogadorAtual(regra.JOGADOR_DOIS);
-		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+            pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+            regra.setJogadorAtual(regra.JOGADOR_DOIS);
+            pecasAptas = regra.getPecasAptasDoJogadorAtual();
 	}
 	regra.setJogadorAtual(jogadorAtual);
         for (Peca peca : pecasAptas) {
