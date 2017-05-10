@@ -57,9 +57,9 @@ public class Bot extends Jogador {
 		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
 	}
 	else{
-		pecasAptas = regra.getPecasAptasDoJogadorAtual();
-		regra.setJogadorAtual(regra.JOGADOR_DOIS);
 		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+		regra.setJogadorAtual(regra.JOGADOR_DOIS);
+		pecasAptas = regra.getPecasAptasDoJogadorAtual();
 	}
 	regra.setJogadorAtual(jogadorAtual);
         for (Peca peca : pecasAptas) {
