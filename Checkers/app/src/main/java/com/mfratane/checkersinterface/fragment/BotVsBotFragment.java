@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mfratane.boardview.BoardView;
 import com.mfratane.checkersinterface.R;
@@ -14,6 +15,8 @@ import com.mfratane.checkersinterface.util.Constants;
 
 import regradejogo.Bot;
 import regradejogo.Humano;
+import regradejogo.Jogada;
+import regradejogo.Posicao;
 import regradejogo.Regras;
 
 /**
@@ -63,14 +66,26 @@ public class BotVsBotFragment extends GameFragment {
         }
 
         bot1 = new Bot(regras, getDificuldade(dificuldade1), Regras.JOGADOR_UM);
-        bot2 = new Bot(regras, getDificuldade(dificuldade2), Regras.JOGADOR_UM);
+        bot2 = new Bot(regras, getDificuldade(dificuldade2), Regras.JOGADOR_DOIS);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_game_botxbot, container, false);
+
+        Button button = (Button) view.findViewById(R.id.play);
+
+        button.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Jogada jogada = regras.getJogadorAtual() == Regras.JOGADOR_UM? bot1.jogar() : bot2.jogar();
+                Posicao posIni = jogada.getPosInicial();
+                Posicao posFim = jogada.getPosFinal();
+                bot1.realizarJogada(posIni.getI(), posIni.getJ(), posFim.getI(), posFim.getJ());
+            }
+        });
 
         boardView = (BoardView) view.findViewById(R.id.board);
 

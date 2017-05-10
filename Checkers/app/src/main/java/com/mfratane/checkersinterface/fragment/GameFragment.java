@@ -209,5 +209,4 @@ public abstract class GameFragment extends BaseFragment {
     }
 
     protected abstract void endGameCallback(int i, int j);
-
 }
