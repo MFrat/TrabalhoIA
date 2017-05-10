@@ -19,7 +19,7 @@ Para executar o jogo pelo console, basta baixar e executar o .jar das regras.
 A interface no console é auto-explicativa e possui todas as funcionalidades da interface para Android.
 
 ### Android
-Basta baixar o .apl, e instalar no celular. Lembrando que a instalação por meio do .apk necessita da habilitação nas configurações para do item "Permitir instalção de fontes desconfiáveis".
+Basta baixar o .apk, e instalar no celular. Lembrando que a instalação por meio do .apk necessita da habilitação nas configurações para do item "Permitir instalção de fontes desconfiáveis".
 
 ## Bugs
 - Captura em sequência(Desativada no momento).
