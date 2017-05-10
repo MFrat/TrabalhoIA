@@ -15,12 +15,9 @@ public class Bot extends Jogador {
     private int numero_iteracoes;
     private Jogada proximaJogada;
     private int possibilidades;
-    private int time;
 
     public Bot(Regras regras, Dificuldade dificuldade, int time) {
-        super(regras);
-        
-        this.time = time;
+        super(regras, time);
 
         switch (dificuldade) {
             case FACIL:
@@ -52,12 +49,28 @@ public class Bot extends Jogador {
     }
     
     public int goku_mode(Regras regra) { //UTILITY COM PESO PARA DAMA
-        int genkindama = 0;
-        List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
+        int genkidama = 0, blackGenkidama = 0, jogadorAtual = regra.getJogadorAtual();
+        List<Peca> pecasAptas, pecasAptasOpo;
+	if(jogadorAtual==regra.JOGADOR_DOIS){
+		pecasAptas = regra.getPecasAptasDoJogadorAtual();
+		regra.setJogadorAtual(regra.JOGADOR_UM);
+		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+	}
+	else{
+		pecasAptas = regra.getPecasAptasDoJogadorAtual();
+		regra.setJogadorAtual(regra.JOGADOR_DOIS);
+		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+	}
+	regra.setJogadorAtual(jogadorAtual);
         for (Peca peca : pecasAptas) {
-            if(peca.isDama()) genkindama++;
+            if(peca.isDama()) genkidama++;
         }
-        return genkindama + regra.getnPecasJogador2() - regra.getnPecasJogador1();
+	for (Peca peca : pecasAptasOpo) {
+            if(peca.isDama()) blackGenkidama--;
+        }
+        int resp = genkidama + blackGenkidama + regra.getnPecasJogador2() - regra.getnPecasJogador1();
+	if(this.time == regra.JOGADOR_DOIS)return resp;
+	else return -resp;
     }
     
     public int utility(Regras regra) {
@@ -71,7 +84,7 @@ public class Bot extends Jogador {
 
         Regras regra_auxiliar;
         Jogada jogadaCandidata;
-        if (regra.getJogadorAtual() == time) {
+        if (regra.getJogadorAtual() == this.time) {
             int value = Integer.MIN_VALUE;
             List<Peca> pecasAptas = regra.getPecasAptasDoJogadorAtual();
             for (Peca peca : pecasAptas) {
