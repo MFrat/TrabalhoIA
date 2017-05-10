@@ -20,7 +20,7 @@ Classe abstrata que implementa alguns métodos comuns aos jogadores, além de se
 Representa um jogador humano.
 
 ### Classe Bot
-Representar um jogo robô. Implementa o algorítmo MinMax para realizar a jogada.
+Representar um jogodor robô. Implementa o algorítmo MinMax para realizar a jogada.
 
 ## Callbacks
 
