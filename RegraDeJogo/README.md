@@ -21,3 +21,43 @@ Representa um jogador humano.
 
 ## Classe Bot
 Representar um jogo robô. Implementa o algorítmo MinMax para realizar a jogada.
+
+## Callbacks
+
+### Regras
+
+```java
+regras.setOnBoardChangedListener(new Regras.BoardChangedListener() {
+            @Override
+            public void onPieceMoved(Posicao posInicial, Posicao posFinal) {
+               
+            }
+
+            @Override
+            public void onGameFinished(int vencedor, int causa) {
+            
+            }
+
+            @Override
+            public void onPieceRemoved(Posicao posicao) {
+                
+            }
+
+            @Override
+            public void onKing(int i, int j, int time) {
+                
+            }
+        });
+```
+
+### Jogador
+
+```java
+jogador.setJogadorListener(new Jogador.JogadorListener() {
+            @Override
+            public void jogadaFinalizada() {
+                
+            }
+        });
+```
+
