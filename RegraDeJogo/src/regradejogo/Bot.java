@@ -46,7 +46,7 @@ public class Bot extends Jogador {
         possibilidades = 0;
         minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
         //System.out.println(possibilidades);
-        regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
+        //regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
         
         return proximaJogada;
     }

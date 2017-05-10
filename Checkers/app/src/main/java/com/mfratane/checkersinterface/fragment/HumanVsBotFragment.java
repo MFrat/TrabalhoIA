@@ -1,6 +1,7 @@
 package com.mfratane.checkersinterface.fragment;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.mfratane.checkersinterface.R;
 import regradejogo.Bot;
 import regradejogo.Humano;
 import regradejogo.Jogador;
+import regradejogo.Posicao;
 import regradejogo.Regras;
 
 
@@ -61,6 +63,8 @@ public class HumanVsBotFragment extends GameFragment {
 
         setBoard(boardView, jogador);
 
+        lockPlayerPiece(Regras.JOGADOR_DOIS, jogador, true);
+
         return view;
     }
 
@@ -77,7 +81,8 @@ public class HumanVsBotFragment extends GameFragment {
                 //TODO adicionar delay.
                 //TODO colocar jogada do bot numa thread.
                 if(!regras.isJogoFinalizado()) {
-                    bot.jogar();
+                    BotPlayTask botPlayTask = new BotPlayTask(bot);
+                    botPlayTask.execute();
                 }
             }
         };

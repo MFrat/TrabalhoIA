@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mfratane.checkersinterface.R;
-import com.mfratane.checkersinterface.fragment.GameFragment;
 import com.mfratane.checkersinterface.fragment.HumanVsBotFragment;
 import com.mfratane.checkersinterface.fragment.HumanVsHumanFragment;
 
