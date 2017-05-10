@@ -1,6 +1,7 @@
 package com.mfratane.checkersinterface.fragment;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -22,5 +23,9 @@ public abstract class BaseFragment extends Fragment {
      */
     protected void toastLong(String text){
         Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    protected void warnLog(String text){
+        Log.i("Checkers", text);
     }
 }

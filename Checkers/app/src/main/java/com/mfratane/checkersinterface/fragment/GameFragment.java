@@ -1,5 +1,6 @@
 package com.mfratane.checkersinterface.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -9,6 +10,8 @@ import com.mfratane.checkersinterface.activity.GameAcitivty;
 import java.util.ArrayList;
 import java.util.List;
 
+import regradejogo.Bot;
+import regradejogo.Jogada;
 import regradejogo.Jogador;
 import regradejogo.Posicao;
 import regradejogo.Regras;
@@ -49,6 +52,12 @@ public abstract class GameFragment extends BaseFragment {
      * id da imagem da dama dos jogador 1.
      */
     protected int player2King;
+
+    protected Jogada jogadaBot;
+
+    public static final int FACIL = 0;
+    public static final int MEDIO = 1;
+    public static final int DIFICIL = 2;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,6 +150,63 @@ public abstract class GameFragment extends BaseFragment {
         };
     }
 
-    protected abstract void endGameCallback(int i, int j);
+    protected Bot.Dificuldade getDificuldade(int dificuldade){
+        switch (dificuldade){
+            case FACIL:
+                return Bot.Dificuldade.FACIL;
+            case MEDIO:
+                return Bot.Dificuldade.MEDIO;
+        }
 
+        return Bot.Dificuldade.DIFÍCIL;
+    }
+
+    class BotPlayTask extends AsyncTask<Void, Void, Void> {
+        private Bot bot;
+
+        BotPlayTask(Bot bot){
+            this.bot = bot;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //TODO travar peças do tabuleiro.
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            jogadaBot = bot.jogar();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(jogadaBot != null){
+                Posicao ini = jogadaBot.getPosInicial();
+                Posicao fin = jogadaBot.getPosFinal();
+                bot.realizarJogada(ini.getI(), ini.getJ(), fin.getI(), fin.getJ());
+            }
+
+            //TODO liberar peças do tabuleiro.
+        }
+    }
+
+    protected int getDefaultDificulty(){
+        return MEDIO;
+    }
+
+    protected void lockPlayerPiece(int time, Jogador jogador, boolean lock){
+        for(int i = 0; i < Tabuleiro.DIMEN; i++){
+            for(int j = 0; j < Tabuleiro.DIMEN; j++){
+                if(jogador.consultarPosicao(i, j) == time){
+                    boardView.lockPiece(i, j, lock);
+                }
+            }
+        }
+    }
+
+    protected abstract void endGameCallback(int i, int j);
 }

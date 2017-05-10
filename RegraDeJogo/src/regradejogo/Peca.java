@@ -6,7 +6,7 @@ import java.util.List;
  * Classe que representa uma peca de jogo.
  * @author Max
  */
-class Peca {
+public class Peca {
     private int time;
     private boolean dama;
     

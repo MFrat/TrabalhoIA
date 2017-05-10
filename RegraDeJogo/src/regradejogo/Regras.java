@@ -666,7 +666,7 @@ public class Regras {
      * @param rastro
      * @return
      */
-    protected List<Jogada> capturasSeguidas(List<Jogada> jogadas, Jogada jogada, int time, List<Posicao> rastro) {
+    public List<Jogada> capturasSeguidas(List<Jogada> jogadas, Jogada jogada, int time, List<Posicao> rastro) {
         List<Posicao> posicoes = getPosicoesPossiveisPos(jogada.getPosFinal(), time);
         List<Jogada> capturas = capturasPossiveis(posicoes, jogada.getPosFinal(), time);
 

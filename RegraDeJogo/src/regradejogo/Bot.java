@@ -43,7 +43,7 @@ public class Bot extends Jogador {
         possibilidades = 0;
         minMax(regra_auxiliar, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
         //System.out.println(possibilidades);
-        regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
+        //regras.moverPeca(proximaJogada.getPosInicial(), proximaJogada.getPosFinal());
         
         return proximaJogada;
     }
@@ -52,14 +52,14 @@ public class Bot extends Jogador {
         int genkidama = 0, blackGenkidama = 0, jogadorAtual = regra.getJogadorAtual();
         List<Peca> pecasAptas, pecasAptasOpo;
 	if(jogadorAtual==regra.JOGADOR_DOIS){
-		pecasAptas = regra.getPecasAptasDoJogadorAtual();
-		regra.setJogadorAtual(regra.JOGADOR_UM);
-		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+            pecasAptas = regra.getPecasAptasDoJogadorAtual();
+            regra.setJogadorAtual(regra.JOGADOR_UM);
+            pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
 	}
 	else{
-		pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
-		regra.setJogadorAtual(regra.JOGADOR_DOIS);
-		pecasAptas = regra.getPecasAptasDoJogadorAtual();
+            pecasAptasOpo = regra.getPecasAptasDoJogadorAtual();
+            regra.setJogadorAtual(regra.JOGADOR_DOIS);
+            pecasAptas = regra.getPecasAptasDoJogadorAtual();
 	}
 	regra.setJogadorAtual(jogadorAtual);
         for (Peca peca : pecasAptas) {
